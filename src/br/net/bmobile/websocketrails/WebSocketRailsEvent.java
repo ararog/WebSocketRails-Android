@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
+import android.util.Log;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WebSocketRailsEvent {
 
@@ -34,13 +40,13 @@ public class WebSocketRailsEvent {
 	            if (attr.get("id") != null)
 	                id = (Integer) attr.get("id");
 	            else
-	                id = (int) Math.random();
+	                id = (int) new Random().nextInt();
 	            
 	            if (attr.get("channel") != null)
 	                channel = (String) attr.get("channel");
 	            
 	            if (attr.get("data") != null)
-	                data = attr.get("data");
+	                this.data = attr.get("data");
 	            
 	            if (attr.get("token") != null)
 	                token = (String) attr.get("token");	            
@@ -69,7 +75,7 @@ public class WebSocketRailsEvent {
 	
 	public boolean isPing()
 	{
-	    return name == "websocket_rails.ping";
+	    return "websocket_rails.ping".equals(name);
 	}
 
 	public String serialize()
@@ -79,7 +85,16 @@ public class WebSocketRailsEvent {
 	    array.add(name);
 	    array.add(this.attributes());
 	    
-	    return "";
+	    ObjectMapper mapper = new ObjectMapper();
+	    try {
+			return mapper.writeValueAsString(array);
+		} 
+	    catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			Log.e("WebSocketRailsEvent", "exception", e);
+		}
+	    
+	    return null;
 	}
 
 	public Object attributes()

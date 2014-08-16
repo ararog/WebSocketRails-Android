@@ -48,7 +48,7 @@ public class WebSocketRailsDispatcher {
 	            dispatch(event);
 	        }
 	        
-	        if (state == "connecting" && event.getName() == "client_connected")
+	        if ("connecting".equals(state) && "client_connected".equals(event.getName()))
 	            connectionEstablished(event.getData());
 	    }		
 	}
@@ -106,7 +106,7 @@ public class WebSocketRailsDispatcher {
 	
 	public WebSocketRailsChannel subscribe(String channelName) {
 		
-	    if (channels.get(channelName) == null)
+	    if (channels.get(channelName) != null)
 	        return channels.get(channelName);
 	    
 	    WebSocketRailsChannel channel = new WebSocketRailsChannel(channelName, this, false);

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -51,14 +52,13 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 				});
 			
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e("WebSocketRailsConnection", "exception", e);
 		}
 	}
 
 	public void trigger(WebSocketRailsEvent event) {
 		
-	    if (dispatcher.getState() == "connected")
+	    if (! "connected".equals(dispatcher.getState()))
 	        message_queue.add(event);
 	    else
 	        webSocket.send(event.serialize());		
@@ -104,15 +104,8 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 			
 			dispatcher.newMessage(list);
 			
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (Exception e) {
+			Log.e("WebSocketRailsConnection", "exception", e);
+		} 
 	}
 }

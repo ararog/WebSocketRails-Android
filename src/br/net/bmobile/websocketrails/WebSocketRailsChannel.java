@@ -34,6 +34,7 @@ public class WebSocketRailsChannel {
         
         data.put("data", info);
         
+        frame.add(data);
         frame.add(dispatcher.getConnectionId());
         
         WebSocketRailsEvent event = new WebSocketRailsEvent(frame, null, null);
@@ -63,6 +64,7 @@ public class WebSocketRailsChannel {
         info.put("data", message);
         info.put("token", token);
         
+        frame.add(info);
         frame.add(dispatcher.getConnectionId());
         
         WebSocketRailsEvent event = new WebSocketRailsEvent(frame, null, null);
@@ -72,7 +74,7 @@ public class WebSocketRailsChannel {
 	
 	public void dispatch(String eventName, Object message) {
 		
-	    if(eventName == "websocket_rails.channel_token") {
+	    if("websocket_rails.channel_token".equals(eventName)) {
 	        
 	        Map<String, Object> info = (Map<String, Object>) message;
 	        this.token = (String) info.get("token");
