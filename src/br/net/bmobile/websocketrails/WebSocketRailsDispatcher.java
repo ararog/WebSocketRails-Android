@@ -61,6 +61,13 @@ public class WebSocketRailsDispatcher {
 	    	
 		    connectionId = (String) infoMap.get("connection_id");
 		    connection.flushQueue(connectionId);
+		    
+		    List<Object> frame = new ArrayList<Object>();
+		    frame.add("connection_opened");
+			frame.add(new HashMap<String, Object>());
+			
+		    WebSocketRailsEvent event = new WebSocketRailsEvent(frame);
+		    dispatch(event);		    
 	    }
 	}
 	

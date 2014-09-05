@@ -1,7 +1,5 @@
 package br.net.bmobile.websocketrails;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +8,7 @@ import java.util.List;
 import android.net.Uri;
 import android.util.Log;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koushikdutta.async.callback.CompletedCallback;
 import com.koushikdutta.async.http.AsyncHttpClient;
@@ -51,7 +47,7 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 					}
 				});
 			
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
 			Log.e("WebSocketRailsConnection", "exception", e);
 		}
 	}
