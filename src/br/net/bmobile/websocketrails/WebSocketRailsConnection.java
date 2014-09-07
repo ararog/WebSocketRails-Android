@@ -62,16 +62,39 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 	
 	public void flushQueue(String id) {
 		
-	    for (WebSocketRailsEvent event : message_queue)
-	    {
+	    for (WebSocketRailsEvent event : message_queue) {
 	        String serializedEvent = event.serialize();
 	        webSocket.send(serializedEvent);
 	    }		
+	}
+	
+	public void connect() {
+		
+        try {
+			Uri uri = Uri.parse(url.toURI().toString());
+			
+	        AsyncHttpClient.getDefaultInstance().websocket(
+        		new AsyncHttpGet(uri), null, new WebSocketConnectCallback() {
+					
+					@Override
+					public void onCompleted(Exception arg0, WebSocket webSocket) {
+						
+				        webSocket.setStringCallback(WebSocketRailsConnection.this);
+				        webSocket.setClosedCallback(WebSocketRailsConnection.this);
+
+				        WebSocketRailsConnection.this.webSocket = webSocket;
+					}
+				});
+			
+		} catch (Exception e) {
+			Log.e("WebSocketRailsConnection", "exception", e);
+		}
 	}
 
 	public void disconnect() {
 	
 		webSocket.close();
+		webSocket = null;
 	}
 
 	@Override

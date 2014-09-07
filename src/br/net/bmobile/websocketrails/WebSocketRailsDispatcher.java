@@ -132,16 +132,16 @@ public class WebSocketRailsDispatcher {
 	    channels.remove(channelName);		
 	}
 
-	private void dispatchChannel(WebSocketRailsEvent event)
-	{
-	    if (channels.get(event.getChannel()) == null)
+	private void dispatchChannel(WebSocketRailsEvent event) {
+	    
+		if (channels.get(event.getChannel()) == null)
 	        return;
 	    
 	    channels.get(event.getChannel()).dispatch(event.getName(), event.getData());
 	}
 
-	private void pong()
-	{
+	private void pong() {
+		
 		List<Object> frame = new ArrayList<Object>();
 		frame.add("websocket_rails.pong");
 		frame.add(new HashMap<String, Object>());
@@ -151,8 +151,11 @@ public class WebSocketRailsDispatcher {
 	    connection.trigger(pong);
 	}
 
-	public void disconnect()
-	{
+	public void connect() {
+		connection.connect();
+	}
+	
+	public void disconnect() {
 	    connection.disconnect();
 	}
 	
