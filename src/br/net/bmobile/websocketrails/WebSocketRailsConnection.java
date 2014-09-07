@@ -17,7 +17,7 @@ import com.koushikdutta.async.http.AsyncHttpGet;
 import com.koushikdutta.async.http.WebSocket;
 import com.koushikdutta.async.http.WebSocket.StringCallback;
 
-public class WebSocketRailsConnection implements StringCallback, CompletedCallback {
+public class WebSocketRailsConnection implements StringCallback, CompletedCallback, WebSocketConnectCallback {
 
 	private URL url;
 	private WebSocketRailsDispatcher dispatcher;
@@ -35,17 +35,7 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 			uri = Uri.parse(url.toURI().toString());
 			
 	        AsyncHttpClient.getDefaultInstance().websocket(
-        		new AsyncHttpGet(uri), null, new WebSocketConnectCallback() {
-					
-					@Override
-					public void onCompleted(Exception arg0, WebSocket webSocket) {
-						
-				        webSocket.setStringCallback(WebSocketRailsConnection.this);
-				        webSocket.setClosedCallback(WebSocketRailsConnection.this);
-
-				        WebSocketRailsConnection.this.webSocket = webSocket;
-					}
-				});
+        		new AsyncHttpGet(uri), null, this);
 			
 		} catch (Exception e) {
 			Log.e("WebSocketRailsConnection", "exception", e);
@@ -74,17 +64,7 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 			Uri uri = Uri.parse(url.toURI().toString());
 			
 	        AsyncHttpClient.getDefaultInstance().websocket(
-        		new AsyncHttpGet(uri), null, new WebSocketConnectCallback() {
-					
-					@Override
-					public void onCompleted(Exception arg0, WebSocket webSocket) {
-						
-				        webSocket.setStringCallback(WebSocketRailsConnection.this);
-				        webSocket.setClosedCallback(WebSocketRailsConnection.this);
-
-				        WebSocketRailsConnection.this.webSocket = webSocket;
-					}
-				});
+        		new AsyncHttpGet(uri), null, this);
 			
 		} catch (Exception e) {
 			Log.e("WebSocketRailsConnection", "exception", e);
@@ -94,7 +74,15 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 	public void disconnect() {
 	
 		webSocket.close();
-		webSocket = null;
+	}
+	
+	@Override
+	public void onCompleted(Exception arg0, WebSocket ws) {
+		// TODO Auto-generated method stub
+        ws.setStringCallback(this);
+        ws.setClosedCallback(this);
+
+        this.webSocket = ws;
 	}
 
 	@Override
