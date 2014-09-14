@@ -29,17 +29,6 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
         this.url = url;
         this.dispatcher = dispatcher;
         this.message_queue = new ArrayList<WebSocketRailsEvent>();
-        
-        Uri uri = null;
-        try {
-			uri = Uri.parse(url.toURI().toString());
-			
-	        AsyncHttpClient.getDefaultInstance().websocket(
-        		new AsyncHttpGet(uri), null, this);
-			
-		} catch (Exception e) {
-			Log.e("WebSocketRailsConnection", "exception", e);
-		}
 	}
 
 	public void trigger(WebSocketRailsEvent event) {
