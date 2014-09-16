@@ -91,6 +91,11 @@ public class WebSocketRailsDispatcher {
 	    connection.trigger(event);
 	}
 	
+	public void trigger(String eventName, Object data) {
+
+		trigger(eventName, data, null, null);
+	}
+	
 	public void triggerEvent(WebSocketRailsEvent event) {
 		
 	     if (queue.get(event.getId()) != null && queue.get(event.getId()) == event)
