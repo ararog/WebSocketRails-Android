@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class WebSocketRailsChannel {
 
-	private String eventName;
 	private Map<String, List<WebSocketRailsDataCallback>> callbacks;
 	private String channelName;
 	private String token;
@@ -57,8 +56,6 @@ public class WebSocketRailsChannel {
 	    List<Object> frame = new ArrayList<Object>();
         frame.add(eventName);
 
-        Map<String, Map<String, Object>> data = new HashMap<String, Map<String, Object>>();
-        
         Map<String, Object> info = new HashMap<String, Object>();
         info.put("channel", channelName);
         info.put("data", message);

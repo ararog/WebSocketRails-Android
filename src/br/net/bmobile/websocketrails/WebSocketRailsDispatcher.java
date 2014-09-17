@@ -125,6 +125,11 @@ public class WebSocketRailsDispatcher {
 	    }		
 	}
 	
+	public boolean isSubscribed(String channelName) {
+		
+		return (channels.get(channelName) != null);
+	}
+	
 	public WebSocketRailsChannel subscribe(String channelName) {
 		
 	    if (channels.get(channelName) != null)
@@ -189,19 +194,7 @@ public class WebSocketRailsDispatcher {
 		this.url = url;
 	}
 	
-	public Map<String, WebSocketRailsChannel> getChannels() {
-		return channels;
-	}
-	
-	public void setChannels(Map<String, WebSocketRailsChannel> channels) {
-		this.channels = channels;
-	}
-	
 	public String getConnectionId() {
 		return connectionId;
-	}
-	
-	public void setConnectionId(String connectionId) {
-		this.connectionId = connectionId;
 	}
 }
