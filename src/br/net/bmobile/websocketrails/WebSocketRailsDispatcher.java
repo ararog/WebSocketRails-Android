@@ -83,7 +83,16 @@ public class WebSocketRailsDispatcher {
 		
 		List<Object> frame = new ArrayList<Object>();
 		frame.add(eventName);
-		frame.add(data);
+		
+		if(data instanceof Map<?, ?>) {
+			frame.add(data);
+		}
+		else {
+			Map<String, Object> payload = new HashMap<String, Object>();
+			payload.put("data", data);
+			frame.add(payload);
+		}
+		
 		frame.add(connectionId);
 		
 	    WebSocketRailsEvent event = new WebSocketRailsEvent(frame, success, failure);
