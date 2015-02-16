@@ -12,7 +12,7 @@ Refer to https://github.com/koush/AndroidAsync to learn more about AndroidAsync
 
 ## Download
 
-Download [the latest JAR](https://search.maven.org/remote_content?g=com.koushikdutta.async&a=androidasync&v=LATEST
+Download [the latest JAR](https://search.maven.org/remote_content?g=br.net.bmobile&a=websocketrails-android&v=LATEST
 ) or grab via Maven:
 
 ```xml
