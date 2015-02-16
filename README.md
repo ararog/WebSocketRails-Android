@@ -10,6 +10,26 @@ Refer to https://github.com/websocket-rails/websocket-rails to learn more about 
 
 Refer to https://github.com/koush/AndroidAsync to learn more about AndroidAsync
 
+## Download
+
+Download [the latest JAR](https://search.maven.org/remote_content?g=com.koushikdutta.async&a=androidasync&v=LATEST
+) or grab via Maven:
+
+```xml
+<dependency>
+    <groupId>br.net.bmobile</groupId>
+    <artifactId>websocketrails-android</artifactId>
+    <version>(insert latest version)</version>
+</dependency>
+```
+
+Gradle: 
+```groovy
+dependencies {
+    compile 'br.net.bmobile:websocketrails-android:1.+'
+}
+```
+
 ## Example
 
 Since data exchange is JSON based, it's strongly recommended to use Jackson
