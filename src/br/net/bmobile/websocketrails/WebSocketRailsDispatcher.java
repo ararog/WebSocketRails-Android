@@ -141,7 +141,19 @@ public class WebSocketRailsDispatcher {
 	    
 	    return channel;
 	}
-	
+
+	public WebSocketRailsChannel subscribePrivate(String channelName) {
+
+	    if (channels.get(channelName) != null)
+	        return channels.get(channelName);
+
+	    WebSocketRailsChannel channel = new WebSocketRailsChannel(channelName, this, true);
+
+	    channels.put(channelName, channel);
+
+	    return channel;
+	}
+
 	public void unsubscribe(String channelName) {
 	
 	    if (channels.get(channelName) == null)
