@@ -83,8 +83,8 @@
 								<contextUrl>https://oss.jfrog.org</contextUrl>
 								<username>ararog</username>
 								<password></password>
-								<repoKey>libs-releases-local</repoKey>
-								<snapshotRepoKey>libs-snapshots-local</snapshotRepoKey>
+								<repoKey>oss-release-local</repoKey>
+								<snapshotRepoKey>oss-snapshots-local</snapshotRepoKey>
 							</publisher>
 						</configuration>
 					</execution>
