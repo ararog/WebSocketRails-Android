@@ -101,6 +101,8 @@ public class WebSocketRailsChannel {
         
         data.put("data", info);
         
+        frame.add(data);
+        
         frame.add(dispatcher.getConnectionId());
         
         WebSocketRailsEvent event = new WebSocketRailsEvent(frame, null, null);
