@@ -35,60 +35,93 @@ dependencies {
 Since data exchange is JSON based, it's strongly recommended to use Jackson
 API to deserialize data.
 
-Here's an example:
 
-```
+## Connecting to websocket
+
+
+```java
+
 private WebSocketRailsDispatcher dispatcher;
 
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_main);
-	
+...
 	try {
 		dispatcher = new WebSocketRailsDispatcher(new URL("http://192.168.100.109:3000/websocket"));
+		dispatcher.connect();
 	} 
 	catch (MalformedURLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+...
+```
+
+## Creating and Subscribing a WebSocketRailsChannel
+
+````java
+
+private static WebSocketRailsChannel webSocketRailsChannel;
+
+...
+
+	webSocketRailsChannel = dispatcher.subscribe("chanelName");
+
+...
+````
+
+## Trigering a event from WebSocketRailsChannel
+
+````java
+
+private static WebSocketRailsChannel webSocketRailsChannel;
+
+...
+
+	Message message = new Message(); // Create a class with getter and setter as in Jackson API
 	
-	Button button = (Button) findViewById(R.id.sendButton);
+	message.setName("Charles");
+	message.setMessage("Hai");
 	
-	button.setOnClickListener(new View.OnClickListener() {
-		
+	webSocketRailsChannel.trigger("new_message", message);
+
+...
+````
+
+## Binding a event to WebSocketRailsChannel
+
+````java
+
+...
+
+	webSocketRailsChannel.bind("new_message", new WebSocketRailsDataCallback() {
+
 		@Override
-		public void onClick(View v) {
-			
-			WebSocketRailsChannel channel = dispatcher.subscribe("my_channel");
-			Notification notification = new Notification();
-			notification.setType(1);
-			notification.setContent("");
-			
-			Contact contact = new Contact();
-			contact.setIdentifier(7);
-			contact.setFirstName("Bond");
-			contact.setLastName("");
-			contact.setCountryCode("+1");
-			contact.setPhoneNumber("777000007");
-			
-			notification.setContact(contact);
-			channel.trigger("notification_event", notification);
-			
-			channel.bind("notification_event", new WebSocketRailsCallback() {
-				@Override
-				public void onDataAvailable(Object data) {
-					
-					ObjectMapper mapper = new ObjectMapper();
-					if(data instanceof Map) {
-			
-						notification = (Notification) mapper.convertValue(data, new TypeReference<Notification>(){});
-						
-						//do something						
-					}
-				}		
-			});
+		public void onDataAvailable(Object data) {
+		// Do what you want with the data received.
+		
 		}
-	});
-}
+	}
+
+...
+````
+
+## Unsubscribing a WebSocketRailsChannel
+
+````java
+
+...
+
+	dispatcher.unSubscribe("chanelName");
+
+...
+````
+
+## disconnecting websocket
+
+
+```java
+
+
+...
+	dispatcher.disconnect();
+...
 ```
