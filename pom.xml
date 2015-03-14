@@ -6,7 +6,7 @@
 	<description>An Android client of WebSocket-Rails</description>
 	<groupId>br.net.bmobile</groupId>
 	<artifactId>websocketrails-android</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<issueManagement>
 		<url>https://github.com/ararog/WebSocketRails-Android/issues</url>
 		<system>GitHub Issues</system>
@@ -22,7 +22,7 @@
 		<connection>scm:git:https://github.com/ararog/WebSocketRails-Android.git</connection>
 		<developerConnection>scm:git:git@github.com:ararog/WebSocketRails-Android.git</developerConnection>
 		<url>https://github.com/ararog/WebSocketRails-Android</url>
-		<tag>v1.0.1</tag>
+		<tag>v1.0.2</tag>
 	</scm>
 	<developers>
 		<developer>
