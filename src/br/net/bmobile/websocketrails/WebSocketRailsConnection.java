@@ -23,13 +23,19 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 	private WebSocketRailsDispatcher dispatcher;
 	private List<WebSocketRailsEvent> message_queue;
 	private WebSocket webSocket;
+    private HashMap<String, String> headers;
 	
 	public WebSocketRailsConnection(URL url, WebSocketRailsDispatcher dispatcher) {
 	
         this.url = url;
         this.dispatcher = dispatcher;
         this.message_queue = new ArrayList<WebSocketRailsEvent>();
+        this.headers = new HashMap<>();
 	}
+
+    public void addHeader(String name, String value) {
+        headers.put(name, value);
+    }
 
 	public void trigger(WebSocketRailsEvent event) {
 		
@@ -51,9 +57,13 @@ public class WebSocketRailsConnection implements StringCallback, CompletedCallba
 		
         try {
 			Uri uri = Uri.parse(url.toURI().toString());
-			
-	        AsyncHttpClient.getDefaultInstance().websocket(
-        		new AsyncHttpGet(uri), null, this);
+
+            AsyncHttpGet request = new AsyncHttpGet(uri);
+            for(String key : headers.keySet()) {
+                request.addHeader(key, headers.get(key));
+            }
+
+	        AsyncHttpClient.getDefaultInstance().websocket(request, null, this);
 			
 		} catch (Exception e) {
 			Log.e("WebSocketRailsConnection", "exception", e);

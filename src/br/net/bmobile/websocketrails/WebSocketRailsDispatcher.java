@@ -27,6 +27,10 @@ public class WebSocketRailsDispatcher {
         connectionId = "";
 	}
 
+    public void addHeader(String name, String value) {
+        connection.addHeader(name, value);
+    }
+
 	public void newMessage(List<Object> data) {
 		
 	    for (Object socket_message : data)
