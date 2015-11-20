@@ -125,3 +125,7 @@ private static WebSocketRailsChannel webSocketRailsChannel;
 	dispatcher.disconnect();
 ...
 ```
+
+## Projects using WebSockerRails-Android
+
+[Ow for Android](https://github.com/ararog/Ow-Android)
